@@ -33,12 +33,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
   }
 
+  // When we launch the app or come back into the app, we establisch a connection between the client and the server. And when we close it, we close that connection.
+  
   func applicationDidBecomeActive(_ application: UIApplication) {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    SocketService.instance.establishConnection()
+    
+
   }
 
   func applicationWillTerminate(_ application: UIApplication) {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    SocketService.instance.closeConnection()
+
   }
 
 
