@@ -42,13 +42,18 @@ class MessageService {
             let channel = Channel(channelTitle: name, channelDescription: channelDescription, id: id)
             self.channels.append(channel)
           }
-          // This is how we do JSON parsing up until now. In swift4 there is a new way. They have new decodeble protocols.
-          if self.channels.count > 0 {
-            print(self.channels[0].channelTitle)
-          } else {
-            print("It's empty, bummer")
-          }
+          
+          NotificationCenter.default.post(name: NOTIF_CHANNELS_LOADED, object: nil)
           completion(true)
+          
+          // This is how we do JSON parsing up until now. In swift4 there is a new way. They have new decodeble protocols.
+          // if self.channels.count > 0 {
+          //  print(self.channels[0].channelTitle)
+          //} else {
+          //  print("It's empty, bummer")
+          // }
+          // completion(true)
+          
         }
       } else {
         completion(false)

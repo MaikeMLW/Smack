@@ -26,6 +26,10 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
       // Changed our ChannelVC, based on whether we are loggin in. Add an observer in viewDidLoad what listens to that notification
       NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
       
+      // We need to add an observer
+      NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.channelsLoaded(_:)), name: NOTIF_CHANNELS_LOADED, object: nil)
+      
+      
       SocketService.instance.getChannel { (succes) in
         if succes {
           self.tableView.reloadData()
@@ -66,9 +70,14 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
   // if we are logged in we gonna change the button
   // change user image
   // if we are logged in when we set the user image - now we can set the background color as well.
-  @objc func userDataDidChange(_ notif: Notification) {
   // cut the code and put it under setupUserInfo
+  @objc func userDataDidChange(_ notif: Notification) {
     setupUserInfo()
+  }
+  
+  //
+  @objc func channelsLoaded(_ notif: Notification) {
+    tableView.reloadData()
   }
   
   func setupUserInfo () {
@@ -103,10 +112,25 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     return 1
   }
   
+   // how many channels there are in the message service.
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return MessageService.instance.channels.count    // how many channels there are in the message service.
+    return MessageService.instance.channels.count
   }
+  
+   // what we do - we select a row, we gonna save the selected channel into our message service variables, selected channel - then we will notify the chatVC that we have selected channel/a channel - and then we want to dismiss/close the menu - have the chatVC slide over.
+   // now we gonna make the menu slide back in place.
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let channel = MessageService.instance.channels[indexPath.row]
+    MessageService.instance.selectedChannel = channel
+    NotificationCenter.default.post(name: NOTIF_CHANNEL_SELECTED, object: nil)
+    self.revealViewController().revealToggle(animated: true)
+  }
+  
 }
+
+
+
+
 
 
 
