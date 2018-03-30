@@ -17,6 +17,7 @@
 		0424782A1FDF3D68004CE619 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042478291FDF3D68004CE619 /* ChatVC.swift */; };
 		0424782C1FDF3E15004CE619 /* ChannelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0424782B1FDF3E15004CE619 /* ChannelVC.swift */; };
 		043EA6F41FF6D00F0053EFCF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043EA6F31FF6D00F0053EFCF /* AuthService.swift */; };
+		04414448206018D900B6166B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04414447206018D900B6166B /* Message.swift */; };
 		04462E3E1FF4E47D00598CD3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04462E3D1FF4E47D00598CD3 /* Constants.swift */; };
 		04462E401FF5583500598CD3 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04462E3F1FF5583500598CD3 /* LoginVC.swift */; };
 		04462E421FF5922F00598CD3 /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04462E411FF5922F00598CD3 /* CreateAccountVC.swift */; };
@@ -46,6 +47,7 @@
 		042478291FDF3D68004CE619 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		0424782B1FDF3E15004CE619 /* ChannelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVC.swift; sourceTree = "<group>"; };
 		043EA6F31FF6D00F0053EFCF /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		04414447206018D900B6166B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		04462E3D1FF4E47D00598CD3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		04462E3F1FF5583500598CD3 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		04462E411FF5922F00598CD3 /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				040302F1201F221200AFA216 /* Channel.swift */,
+				04414447206018D900B6166B /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				0424782C1FDF3E15004CE619 /* ChannelVC.swift in Sources */,
 				048E98811FFD94FA00149CDE /* AvatarPickerVC.swift in Sources */,
 				04CC42741FFBB04D00F97A7F /* RoundedButton.swift in Sources */,
+				04414448206018D900B6166B /* Message.swift in Sources */,
 				040302F2201F221200AFA216 /* Channel.swift in Sources */,
 				04EF8F421FFFC85A00080902 /* CircleImage.swift in Sources */,
 				040302F0201F12EB00AFA216 /* MessageService.swift in Sources */,

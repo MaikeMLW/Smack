@@ -26,11 +26,13 @@ class MessageService {
   static let instance = MessageService()  // singleton ?
   
   var channels = [Channel]()
+  var messages = [Message]()  // create channels* - we gonna store the messages at one channel at a time.
   var selectedChannel : Channel?    // variable for the selected channels - which ever channel that we currently selected we gonna store that here. It's gonna be an optional, because if we are not logged in, then we don't have a selected channel.
   func findAllChannel(completion: @escaping CompletionHandler) {  // is a get request - we don't have to pass anything into the body ??
     Alamofire.request(URL_GET_CHANNELS, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in //http
     
       // gives us an array of JSON objects
+      // with these 3 variables (Name, channelDescription, id) we can instanciate and create a new channel object. We are extract the properties we need and then we are going to initialize a new channel object from the struct initializer - and then we are going to add this new channel to our channel array that we store inside our message service. 
       if response.result.error == nil {
         guard let data = response.data else { return }
         debugPrint(String(data: data, encoding: String.Encoding.utf8)!) //
@@ -38,7 +40,7 @@ class MessageService {
           for item in json {
             let name = item["name"].stringValue
             let channelDescription = item["description"].stringValue
-            let id = item["_id"].stringValue   // with these 3 variables we can instanciate and create a new channel object. We are extract the properties we need and then we are going to initialize a new channel object from the struct initializer - and then we are going to add this new channel to our channel array that we store inside our message service.
+            let id = item["_id"].stringValue
             let channel = Channel(channelTitle: name, channelDescription: channelDescription, id: id)
             self.channels.append(channel)
           }
@@ -60,6 +62,44 @@ class MessageService {
         debugPrint(response.result.error as Any)
       }
     }
+  }
+  
+  func findAllMessageForChannel(channelId: String, completion: @escaping CompletionHandler) {
+    Alamofire.request("\(URL_GET_MESSAGES)\(channelId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
+    
+      if response.result.error == nil {
+        self.clearMessages()
+      // if we are succesful we are gonna loop through the objects, the JSON objects in our response and parse out the properties of a message that we need. Now we gonna create a new message and that we are going to append it to an array of messages that we are going to create *
+      // first step is going through the data and the second step is going through the parsing part.
+      // now we have an array of json objects and now we are going to loop through.
+        guard let data = response.data else { return }
+        if let json = JSON(data: data).array {
+          for item in json {
+              let messageBody = item["messageBody"].stringValue
+              let channelId = item["channelId"].stringValue
+              let id = item["_id"].stringValue
+              let userName = item["userName"].stringValue
+              let userAvatar = item["userAvatar"].stringValue
+              let userAvatarColor = item["userAvatarColor"].stringValue
+              let timeStamp = item["timeStamp"].stringValue
+            
+            let message = Message(message: messageBody, userName:userName, channelId: channelId, userAvatar: userAvatar, userAvatarColor: userAvatarColor, id: id, timeStamp: timeStamp)
+            self.messages.append(message)
+            
+            //once we login, the first thing we do is finding the channels. 
+          }
+          print(self.messages)
+          completion(true)
+        }
+      } else {
+        debugPrint(response.result.error as Any)
+        completion(false)
+        }
+      }
+  }
+  
+  func clearMessages() {
+    messages.removeAll()
   }
   
   func clearChannels () {
