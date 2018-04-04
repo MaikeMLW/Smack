@@ -73,7 +73,7 @@ class MessageService {
       // first step is going through the data and the second step is going through the parsing part.
       // now we have an array of json objects and now we are going to loop through.
         guard let data = response.data else { return }
-        if let json = JSON(data: data).array {
+        if let json = try! JSON(data: data).array {
           for item in json {
               let messageBody = item["messageBody"].stringValue
               let channelId = item["channelId"].stringValue
